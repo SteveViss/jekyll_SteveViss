@@ -1,0 +1,6 @@
+markdown: redcarpet
+safe: false
+name: blog
+higlighter: true
+permalink: /blog/:year/:month/:day/:title
+relative_permalinks: false

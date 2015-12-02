@@ -4,20 +4,17 @@ title: Contact
 ---
 
 <div id="map">
-  <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
   <script>
 
-  var map = L.map('map').setView([48.45245, -68.51205], 12);
+  var map = L.map('map').setView([48.45, -68.51], 13);
 
-  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        maxZoom: 18,
+        id: 'mapbox.streets-basic',
+        accessToken: 'pk.eyJ1Ijoic3RldmV2aXNzIiwiYSI6ImNpaG53N2RsczBwOTZ0dGx6c3JqdXBoYzMifQ.w3eEV_jVfAo7d46D1i55BA'
+    }).addTo(map);
 
-
-  L.marker([48.45245, -68.51205]).addTo(map)
-  .bindPopup("<b>I'm here !</b> <br> at Université du Québec à Rimouski").openPopup();
-
-  var popup = L.popup();
+    L.marker([48.45, -68.51]).addTo(map);
 
   </script>
 </div>

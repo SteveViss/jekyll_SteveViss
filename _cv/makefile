@@ -1,15 +1,15 @@
 TEX = pandoc
-src = template.tex details.yml ref.yml
+src = template.tex details_fr.yml publi.yml
 FLAGS = --latex-engine=xelatex
 
-all: ref.yml cv.pdf
+all: publi.yml cv_fr.pdf
 
-ref.yml: publi.bib
+publi.yml: publi.bib
 	pandoc-citeproc -y $< $ > $@
 
-cv.pdf : $(src)
-	$(TEX)  $(filter-out $<,$^ ) -o $@ --template=$< $(FLAGS)
+cv_fr.pdf : $(src)
+	$(TEX)  $(filter-out $<,$^ ) -o ../assets/pdf/$@ --template=$< $(FLAGS)
 
 .PHONY: all
 clean :
-	rm ref.yml cv.pdf
+	rm ref.yml ../assets/pdf/cv_fr.pdf

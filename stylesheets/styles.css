@@ -7,7 +7,7 @@ body {
   font-weight:400;
   margin-top: 60px;
   margin-bottom:40px;
-  background-image: url("/img/sky.jpg");
+  background-image: url("/assets/img/sky.jpg");
   background-repeat: no-repeat;
   background-position: right top;
   background-attachment: fixed;

@@ -1,0 +1,222 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+\documentclass[$fontsize$, letterpaper]{article}
+
+
+% MACRO
+%--------------------------------
+\usepackage{xstring}
+\usepackage{ifthen}
+\usepackage{enumitem}
+
+\newcommand{\fl}[1]{%
+    \StrLeft{#1}{1}[\firstletter]%
+    \firstletter
+}
+
+% LAYOUT
+%--------------------------------
+% Margins
+\usepackage{geometry} 
+\geometry{$geometry$}
+
+% Do not indent paragraphs
+\setlength\parindent{0in}
+
+% Enable multicolumns
+\usepackage{multicol}
+\setlength{\columnsep}{-3.5cm}
+
+% NUMBERING
+%--------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{lastpage}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhf{}
+\rfoot{\thepage/\pageref{LastPage}}
+
+% Uncomment to suppress page numbers
+% \pagenumbering{gobble}
+
+% TYPOGRAPHY
+%--------------------------------
+\usepackage{fontspec} 
+\usepackage{xunicode}
+\usepackage{xltxtra}
+% converts LaTeX specials (quotes, dashes etc.) to Unicode
+\defaultfontfeatures{Mapping=tex-text}
+\setromanfont [Ligatures={Common}, Numbers={OldStyle}]{$mainfont$}
+% Cool ampersand
+\newcommand{\amper}{{\fontspec[Scale=.95]{$mainfont$}\selectfont\itshape\&}}
+
+% MARGIN NOTES
+%--------------------------------
+\usepackage{marginnote}
+\newcommand{\note}[1]{\marginnote{\small #1}}
+\renewcommand*{\raggedleftmarginnote}{}
+\setlength{\marginparsep}{7pt}
+\reversemarginpar
+
+% HEADINGS
+%--------------------------------
+\usepackage{sectsty} 
+\usepackage[normalem]{ulem}
+\subsectionfont{\rmfamily\mdseries\scshape\normalsize} 
+\subsubsectionfont{\rmfamily\bfseries\upshape\normalsize} 
+\usepackage[compact]{titlesec}
+\titleformat{\section}
+  {\normalfont\large}{\thesection}{1em}{}[{\titlerule[0.2pt]}]
+
+
+% PDF SETUP
+%--------------------------------
+\usepackage{hyperref}
+\hypersetup
+{
+  pdfauthor={$name$},
+  pdfsubject={$name$'s CV},
+  pdftitle={$name$'s CV},
+  colorlinks, breaklinks, xetex, bookmarks,
+  filecolor=black,
+  urlcolor=[rgb]{0,0.558,0.765},
+  linkcolor=[rgb]{0,0,0},
+  citecolor=[rgb]{0,0.558,0.765}
+}
+
+% DOCUMENT
+%--------------------------------
+\begin{document}
+
+{\Large \textbf{$name$}}\\[.2cm]
+$status$
+
+$if(skills)$ 
+\begin{multicols}{2}
+$endif$
+
+$for(address)$
+$address$\\
+$endfor$
+
+\vspace{-10pt}
+
+$phone$\\
+\href{mailto:$email$}{$email$}\\
+
+
+$if(urls)$
+$for(urls)$
+Site internet: \href{http://$urls$}{$urls$}\\
+$endfor$
+
+$if(skills)$
+\columnbreak
+\textbf{Programmation scientifique}\\[.2cm]
+Programmation -- $skills.program$ \\
+Texte -- $skills.text$\\
+Base de données -- $skills.bd$ \\
+\end{multicols}
+$endif$
+$endif$
+
+$if(intro)$
+$intro$
+$endif$
+
+\section*{Expériences professionnelles}
+\noindent
+$for(experience)$
+\note{$experience.years$}
+$if(experience.unit)$$experience.unit$,$endif$ \textsc{$experience.employer$} \\
+\emph{$experience.job$}\\
+$experience.city$\\[.2cm]
+$endfor$
+
+$if(education)$
+\section*{Éducation}
+\noindent
+$for(education)$
+\note{$education.years$}$education.subject$$if(education.degree)$, $education.degree$$endif$\\
+\emph{$education.institute$}$if(education.city)$, $education.city$$endif$\\
+$if(education.honour)$\textbf{$education.honour$}$endif$\\[.2cm]
+$endfor$
+$endif$
+
+$if(licenses)$
+\section*{Certifications}
+\noindent
+$for(licenses)$
+\note{$licenses.year$}$licenses.subject$$if(licenses.degree)$, $licenses.degree$$endif$\\
+\emph{$licenses.institute$}$if(licenses.city)$, $licenses.city$$endif$\\[.2cm]
+$endfor$
+$endif$
+
+$if(grants)$
+\section*{Bourses}
+\noindent
+$for(grants)$
+\note{$grants.year$} $grants.title$, $grants.institute$ ($grants.amount$) \\[.2cm]
+$endfor$
+$endif$
+
+$if(references)$
+\section*{Publications scientifiques}
+\noindent
+\begin{enumerate}[leftmargin=*]
+  $for(references)$
+  \ifthenelse{\equal{$references.type$}{article-journal}}{
+  \item{
+  $for(references.author)$
+  \ifthenelse{\equal{$references.author.family$}{Vissault}}{\textbf{$references.author.family$ \fl{$references.author.given$.}}}{$references.author.family$ \fl{$references.author.given$.}}.,
+  $endfor$ $for(references.issued)$ $references.issued.year$$endfor$. $references.title$. $references.container-title$, $references.volume$($references.issue$):$references.page$.$if(references.URL)$\\ \href{$references.URL$}{$references.URL$} $endif$
+  }}{}
+  $endfor$
+  $for(references)$
+  \ifthenelse{\equal{$references.type$}{manuscript}}{
+  \item{
+  $for(references.author)$
+  \ifthenelse{\equal{$references.author.family$}{Vissault}}{\textbf{$references.author.family$ \fl{$references.author.given$.}}}{$references.author.family$ \fl{$references.author.given$.}}.,
+  $endfor$ $for(references.issued)$ $references.issued.year$$endfor$. $references.title$. \textit{Article soumis}
+  }}{}
+  $endfor$
+\end{enumerate}
+$endif$
+
+$if(references)$
+\section*{Présentations}
+\noindent
+\begin{enumerate}[leftmargin=*]
+
+$for(references)$
+
+\ifthenelse{\equal{$references.type$}{book}}{
+\item{
+$for(references.author)$
+\ifthenelse{\equal{$references.author.family$}{Vissault}}{\textbf{$references.author.family$ \fl{$references.author.given$.}}}{$references.author.family$ \fl{$references.author.given$.}}.,
+$endfor$ $for(references.issued)$ $references.issued.year$$endfor$. $references.title$. $references.publisher$, $references.publisher-place$. $if(references.URL)$ \href{$references.URL$}{Online} $endif$
+}}{}
+$endfor$
+\end{enumerate}
+$endif$
+
+
+$if(references)$
+\section*{Affiches}
+\noindent
+\begin{enumerate}[leftmargin=*]
+
+$for(references)$
+
+\ifthenelse{\equal{$references.type$}{pamphlet}}{
+\item{
+$for(references.author)$
+\ifthenelse{\equal{$references.author.family$}{Vissault}}{\textbf{$references.author.family$ \fl{$references.author.given$.}}}{$references.author.family$ \fl{$references.author.given$.}}.,
+$endfor$ $for(references.issued)$ $references.issued.year$ $endfor$. $references.title$. $references.publisher$, $references.publisher-place$. $if(references.URL)$ \href{$references.URL$}{Online} $endif$
+}}{}
+$endfor$
+\end{enumerate}
+$endif$
+
+\end{document}

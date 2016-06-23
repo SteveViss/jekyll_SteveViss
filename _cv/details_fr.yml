@@ -115,9 +115,12 @@ grants:
   amount: 10,000$
 
 skills:
- program: R, C/C++, HTML/CSS
- text: \LaTeX, Markdown
- bd: PostgreSQL \& PostGIS
+ program: 
+   - $\blacksquare \blacksquare \blacksquare \blacksquare \square$ R
+   - $\blacksquare \blacksquare \blacksquare \square \square$ C/C++
+   - $\blacksquare \blacksquare \square \square \square$ Python
+   - $\blacksquare \blacksquare \blacksquare \blacksquare \square$ HTML/CSS
+   - $\blacksquare \blacksquare \blacksquare \blacksquare \square$ PostgreSQL
 
 # Settings
 mainfont: Fira Sans Light

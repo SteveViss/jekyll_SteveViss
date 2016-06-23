@@ -15,6 +15,11 @@
     \firstletter
 }
 
+% SYMBOL
+%--------------------------------
+\usepackage{amssymb} 
+\usepackage{fourier}
+
 % LAYOUT
 %--------------------------------
 % Margins
@@ -114,9 +119,9 @@ $endfor$
 $if(skills)$
 \columnbreak
 \textbf{Programmation scientifique}\\[.2cm]
-Programmation -- $skills.program$ \\
-Texte -- $skills.text$\\
-Base de données -- $skills.bd$ \\
+$for(skills.program)$
+$skills.program$\\
+$endfor$
 \end{multicols}
 $endif$
 $endif$
